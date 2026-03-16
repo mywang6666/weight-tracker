@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>减肥体重记录</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">WEIGHT TRACKER</p>
+        <h1>记录每天两次体重，<br>把变化看得更清楚。</h1>
+        <p class="hero-text">录入时使用公斤，趋势图自动换算成斤。数据保存在当前浏览器本地，打开页面就能继续记录。</p>
+      </div>
+      <div class="hero-card stats-grid" id="statsGrid">
+        <article class="stat-card">
+          <span>最新体重</span>
+          <strong id="latestWeight">--</strong>
+        </article>
+        <article class="stat-card">
+          <span>最低体重</span>
+          <strong id="lowestWeight">--</strong>
+        </article>
+        <article class="stat-card">
+          <span>记录次数</span>
+          <strong id="recordCount">0</strong>
+        </article>
+      </div>
+    </header>
+
+    <main class="main-layout">
+      <section class="panel chart-panel">
+        <div class="panel-header chart-header">
+          <div>
+            <h2>体重趋势</h2>
+            <p>纵轴显示斤，横轴按日期和时间排序。记录变多后会自动压缩间距并调整标签密度，尽量完整显示在一张大图里。</p>
+          </div>
+          <p class="chart-tip">自动适配密度</p>
+        </div>
+
+        <div class="chart-wrap">
+          <div class="chart-viewport" id="chartViewport">
+            <svg id="weightChart" viewBox="0 0 760 420" role="img" aria-label="体重变化趋势图"></svg>
+          </div>
+          <div class="chart-empty" id="chartEmpty">还没有记录，先添加今天的体重吧。</div>
+        </div>
+      </section>
+
+      <div class="content-grid">
+        <section class="panel form-panel">
+          <div class="panel-header">
+            <h2>新增记录</h2>
+            <p>同一天可一次录入两次测量，时间和体重都可分别填写。</p>
+          </div>
+
+          <form id="weightForm" class="weight-form">
+            <label class="field">
+              <span>日期</span>
+              <input type="date" id="recordDate" required>
+            </label>
+
+            <div class="measurement-grid">
+              <fieldset class="measurement-card">
+                <legend>第 1 次</legend>
+                <label class="field">
+                  <span>时间</span>
+                  <input type="time" id="timeOne">
+                </label>
+                <label class="field">
+                  <span>体重（公斤）</span>
+                  <input type="number" id="weightOne" min="20" max="300" step="0.01" placeholder="例如 62.45">
+                </label>
+              </fieldset>
+
+              <fieldset class="measurement-card">
+                <legend>第 2 次</legend>
+                <label class="field">
+                  <span>时间</span>
+                  <input type="time" id="timeTwo">
+                </label>
+                <label class="field">
+                  <span>体重（公斤）</span>
+                  <input type="number" id="weightTwo" min="20" max="300" step="0.01" placeholder="例如 61.95">
+                </label>
+              </fieldset>
+            </div>
+
+            <label class="field">
+              <span>备注</span>
+              <input type="text" id="recordNote" maxlength="60" placeholder="例如：晨起空腹 / 晚饭后">
+            </label>
+
+            <div class="form-actions">
+              <button type="submit" class="primary-btn">保存记录</button>
+              <button type="button" class="ghost-btn" id="clearFormBtn">清空输入</button>
+            </div>
+            <p class="form-hint">至少填写一次体重即可保存。</p>
+          </form>
+        </section>
+
+        <section class="panel table-panel">
+          <div class="panel-header">
+            <h2>历史记录</h2>
+            <p>按日期折叠显示，避免随着数据增多让页面越拉越长。</p>
+          </div>
+
+          <div class="records-accordion" id="recordsBody">
+            <div class="empty-row">还没有体重记录。</div>
+          </div>
+
+          <div class="panel-footer">
+            <button type="button" class="danger-btn" id="clearAllBtn">清空全部记录</button>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
